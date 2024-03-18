@@ -6,9 +6,9 @@ from __future__ import annotations
 import os
 import sys
 
-from icecream import ic
+from PySide6.QtWidgets import QApplication
 
-from tester_class_01 import Tester
+from ezqt.windows import MainWindow
 
 
 def tester00() -> None:
@@ -20,8 +20,10 @@ def tester00() -> None:
 
 def tester01() -> None:
   """Test of tester class"""
-  lmao = Tester()
-  print(lmao)
+  app = QApplication(sys.argv)
+  main = MainWindow()
+  main.show()
+  app.exec()
 
 
 if __name__ == '__main__':

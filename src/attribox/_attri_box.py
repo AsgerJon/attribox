@@ -7,10 +7,13 @@ from __future__ import annotations
 
 from typing import Self, Any
 
+from icecream import ic
 from vistutils.text import monoSpace
 from vistutils.waitaminute import typeMsg
 
-from attribox import TypedDescriptor
+from attribox import TypedDescriptor, scope, this
+
+ic.configureOutput(includeContext=True, )
 
 
 class AttriBox(TypedDescriptor):
@@ -54,7 +57,15 @@ class AttriBox(TypedDescriptor):
   def _createInnerObject(self, instance: object) -> object:
     """Creates an instance of the inner class. """
     innerClass = self._getInnerClass()
-    args, kwargs = self.__positional_args__, self.__keyword_args__
+    kwargs = self.__keyword_args__
+    args = []
+    for arg in self.__positional_args__:
+      if arg is this:
+        args.append(instance)
+      elif arg is scope:
+        args.append(self._getFieldOwner())
+      else:
+        args.append(arg)
     return innerClass(*args, **kwargs)
 
   def _typeGuard(self, item: object) -> Any:
@@ -70,3 +81,40 @@ class AttriBox(TypedDescriptor):
     fieldName = self._getFieldName()
     innerName = self._getInnerClass().__name__
     return '%s.%s: %s' % (ownerName, fieldName, innerName)
+
+  @classmethod
+  def _getOwnerListName(cls) -> str:
+    """Returns the name at which the list of attribute instances of this
+    type. Please note that this name is not unique to the owner as they
+    are in separate scopes."""
+    return '__boxes_%s__' % cls.__qualname__
+
+  def __set_name__(self, owner: type, name: str) -> None:
+    """Sets the name of the field. """
+    ownerListName = self._getOwnerListName()
+    TypedDescriptor.__set_name__(self, owner, name)
+    existing = getattr(owner, ownerListName, [])
+    if existing:
+      return setattr(owner, ownerListName, [*existing, self])
+    setattr(owner, ownerListName, [self, ])
+    oldInitSub = getattr(owner, '__init_subclass__')
+
+    def newInitSub(cls, *args, **kwargs) -> None:
+      """Triggers the extra init"""
+      oldInitSub(*args, **kwargs)
+      self.applyBoxes(cls)
+
+    setattr(owner, '__init_subclass__', classmethod(newInitSub))
+
+  @classmethod
+  def applyBoxes(cls, owner: type) -> None:
+    """Applies the boxes to the owner class."""
+    ownerListName = cls._getOwnerListName()
+    boxes = getattr(owner, ownerListName, [])
+    for box in boxes:
+      if not isinstance(box, AttriBox):
+        e = typeMsg('box', box, AttriBox)
+        raise TypeError(e)
+      boxName = box._getFieldName()
+      setattr(cls, boxName, box)
+      cls.__set_name__(box, owner, boxName)
