@@ -82,6 +82,13 @@ class AttriBox(TypedDescriptor):
     innerName = self._getInnerClass().__name__
     return '%s.%s: %s' % (ownerName, fieldName, innerName)
 
+  def __repr__(self, ) -> str:
+    ownerName = self._getFieldOwner().__name__
+    fieldName = self._getFieldName()
+    innerName = self._getInnerClass().__name__
+    args = ', '.join([*self.__positional_args__, *self.__keyword_args__])
+    return '%s = AttriBox[%s](%s)' % (fieldName, innerName, args)
+
   @classmethod
   def _getOwnerListName(cls) -> str:
     """Returns the name at which the list of attribute instances of this
