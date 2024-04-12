@@ -1,7 +1,7 @@
 """AttriBox subclasses the TypedDescriptor class and incorporates
 syntactic sugar for setting the inner class, and for the inner object
 creation. """
-#  MIT Licence
+#  GPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 

@@ -1,7 +1,7 @@
 """AbstractDescriptor outlines the structure required by the descriptor
 protocol. It is not intended to be used directly, but to be subclassed by
 concrete descriptors. """
-#  MIT Licence
+#  GPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 

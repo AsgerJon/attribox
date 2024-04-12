@@ -1,7 +1,7 @@
 """TypedDescriptor subclasses DelayedDescriptor and adds to it the inner
 class. Instances of this class are descriptors that return inner objects
 belonging to instances of the owning class. """
-#  MIT Licence
+#  GPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 
