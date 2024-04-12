@@ -5,13 +5,20 @@ creation. """
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 
-from typing import Self, Any
+import sys
+from typing import Any
 
 from icecream import ic
 from vistutils.text import monoSpace
 from vistutils.waitaminute import typeMsg
 
 from attribox import TypedDescriptor, scope, this
+
+if sys.version_info.minor < 11:
+  from typing_extensions import Self
+else:
+  from typing import Self
+
 
 ic.configureOutput(includeContext=True, )
 
