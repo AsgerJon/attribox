@@ -118,34 +118,7 @@ class AttriBox(TypedDescriptor):
 
   def _createInnerObject(self, instance: object) -> object:
     """Creates an instance of the inner class. """
-
     innerClass = self._getInnerClass()
-    names = ['__outer_box__',
-             '__owning_instance__',
-             '__field_owner__',
-             '__field_name__']
-    types = [AttriBox, object, type, str]
-    
-    oldGetAttr = object.__getattribute__(innerClass, '__getattribute__')
-
-    def func(self_, key: str) -> Any:
-      """This function replaces __getattribute__. Please note that this
-      was done by a professional in a safe environment. DO NOT TRY THIS
-      AT HOME!"""
-      if key not in ['__name__', '__qualname__']:
-        return oldGetAttr.__func__(self_, key)
-      if getattr(self_, '__attri_boxed_class__', None) is None:
-        return oldGetAttr.__func__(self_, key)
-      return getattr(getattr(self_, '__attri_boxed_class__'), key)
-
-    clsName = 'AttriBox[%s]' % innerClass.__name__
-    clsBases = (innerClass,)
-    clsDict = {
-      '__attri_boxed_class__': innerClass,
-      '__init__': self._null(innerClass, '__init__'),
-      '__init_subclass__': self._null(innerClass, '__init_subclass__'),
-      '__getattribute__': func,
-    }
     cls = type(clsName, clsBases, clsDict)
     kwargs = self.__keyword_args__
     args = []
@@ -156,8 +129,16 @@ class AttriBox(TypedDescriptor):
         args.append(self._getFieldOwner())
       else:
         args.append(arg)
-    innerObject = cls(*args, **kwargs)
-    setattr(innerObject, '__outer_box__', self)
+    innerObject = innerClass(*args, **kwargs)
+    try:
+      setattr(innerObject, '__outer_box__', self)
+    except AttributeError as attributeError:
+      try:
+        innerObject = type(innerClass.__name__, (innerClass, ), {})()
+        setattr(innerObject, '__outer_box__', self)
+      except Exception as exception:
+        raise exception from attributeError
+
     setattr(innerObject, '__owning_instance__', instance)
     setattr(innerObject, '__field_owner__', self._getFieldOwner())
     setattr(innerObject, '__field_name__', self._getFieldName())

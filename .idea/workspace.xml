@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c210fc79-2147-4880-b7d2-9148e84957fb" name="Changes" comment="Exposed inner object to descriptor values from attribox instance.">
-      <change afterPath="$PROJECT_DIR$/old_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/attribox/_alt_str.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/attribox.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/attribox.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Exposed inner object to descriptor values from attribox instance.">
       <change beforePath="$PROJECT_DIR$/src/attribox/_attri_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attri_box.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,171 +12,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="2f0VooDJ6qkhYr8VbLlT9eo2BRG" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/AsgerJon/PycharmProjects/attribox/main.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
-  }
-}</component>
-  <component name="RunManager">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="attribox" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="ros311" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
-        </ENTRIES>
-      </EXTENSION>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="c210fc79-2147-4880-b7d2-9148e84957fb" name="Changes" comment="" />
-      <created>1712938159837</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1712938159837</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Implemented compatibility with version 3.9">
-      <option name="closed" value="true" />
-      <created>1712938311897</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1712938311897</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Implemented compatibility with version 3.9">
-      <option name="closed" value="true" />
-      <created>1712941522406</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1712941522406</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Exposed inner object to descriptor values from attribox instance.">
-      <option name="closed" value="true" />
-      <created>1714553549978</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1714553549978</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Exposed inner object to descriptor values from attribox instance.">
-      <option name="closed" value="true" />
-      <created>1714554176836</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1714554176836</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Exposed inner object to descriptor values from attribox instance.">
-      <option name="closed" value="true" />
-      <created>1714554388474</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1714554388474</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Exposed inner object to descriptor values from attribox instance.">
-      <option name="closed" value="true" />
-      <created>1714556697993</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1714556697994</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Exposed inner object to descriptor values from attribox instance.">
-      <option name="closed" value="true" />
-      <created>1714556711122</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1714556711122</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Exposed inner object to descriptor values from attribox instance.">
-      <option name="closed" value="true" />
-      <created>1714558410012</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1714558410012</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Exposed inner object to descriptor values from attribox instance.">
-      <option name="closed" value="true" />
-      <created>1714558607248</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1714558607248</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implemented compatibility with version 3.9" />
     <MESSAGE value="Exposed inner object to descriptor values from attribox instance." />
     <option name="LAST_COMMIT_MESSAGE" value="Exposed inner object to descriptor values from attribox instance." />
   </component>
