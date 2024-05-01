@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c210fc79-2147-4880-b7d2-9148e84957fb" name="Changes" comment="Exposed inner object to descriptor values from attribox instance.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/attribox/_attri_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attri_box.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,8 +86,35 @@
       <option name="project" value="LOCAL" />
       <updated>1714554388474</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Exposed inner object to descriptor values from attribox instance.">
+      <option name="closed" value="true" />
+      <created>1714556697993</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1714556697994</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Exposed inner object to descriptor values from attribox instance.">
+      <option name="closed" value="true" />
+      <created>1714556711122</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1714556711122</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Implemented compatibility with version 3.9" />

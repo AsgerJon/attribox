@@ -118,12 +118,28 @@ class AttriBox(TypedDescriptor):
 
   def _createInnerObject(self, instance: object) -> object:
     """Creates an instance of the inner class. """
+
     innerClass = self._getInnerClass()
+    oldGetAttr = object.__getattribute__(innerClass, '__getattribute__')
+
+    def func(self_, key: str) -> Any:
+      """This function replaces __getattribute__. Please note that this
+      was done by a professional in a safe environment. DO NOT TRY THIS
+      AT HOME!"""
+      if key not in ['__name__', '__qualname__']:
+        return oldGetAttr(self_, key)
+      if getattr(self_, '__attri_boxed_class__', None) is None:
+        return oldGetAttr(self_, key)
+      return getattr(getattr(self_, '__attri_boxed_class__'), key)
+
     clsName = 'AttriBox[%s]' % innerClass.__name__
     clsBases = (innerClass,)
     clsDict = {
+      '__attri_boxed_class__': innerClass,
       '__init__': self._null(innerClass, '__init__'),
-      '__init_subclass__': self._null(innerClass, '__init_subclass__')}
+      '__init_subclass__': self._null(innerClass, '__init_subclass__'),
+      '__getattribute__': func,
+    }
     cls = type(clsName, clsBases, clsDict)
     kwargs = self.__keyword_args__
     args = []
