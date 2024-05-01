@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import sys
 from typing import Any, Callable
+from types import MethodType
 
 from icecream import ic
 from vistutils.text import monoSpace
@@ -31,19 +32,19 @@ class AttriBox(TypedDescriptor):
   __keyword_args__ = None
 
   @staticmethod
-  def _getterFactory(attributeName: str, attributeType: type) -> Callable:
+  def _getterFactory(obj: object, name: str, type_: type) -> MethodType:
     """Returns a function that returns the attribute. """
 
     def func(self, ) -> Any:
-      attribute = getattr(self, attributeName, None)
+      attribute = getattr(self, name, None)
       if attribute is None:
         raise AttributeError('The attribute is not set!')
-      if isinstance(attribute, attributeType):
+      if isinstance(attribute, type_):
         return attribute
-      e = typeMsg('attribute', attribute, attributeType)
+      e = typeMsg('attribute', attribute, type_)
       raise TypeError(e)
 
-    return func
+    return MethodType(func, obj)
 
   def __init__(self, *args, **kwargs) -> None:
     """Initializes the AttriBox instance. """
