@@ -10,7 +10,7 @@ from typing import Any, Callable
 from types import MethodType
 
 from icecream import ic
-from vistutils.text import monoSpace
+from vistutils.text import monoSpace, stringList
 from vistutils.waitaminute import typeMsg
 
 from attribox import TypedDescriptor, scope, this
@@ -120,6 +120,12 @@ class AttriBox(TypedDescriptor):
     """Creates an instance of the inner class. """
 
     innerClass = self._getInnerClass()
+    names = ['__outer_box__',
+             '__owning_instance__',
+             '__field_owner__',
+             '__field_name__']
+    types = [AttriBox, object, type, str]
+    
     oldGetAttr = object.__getattribute__(innerClass, '__getattribute__')
 
     def func(self_, key: str) -> Any:

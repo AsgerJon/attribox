@@ -1,30 +1,34 @@
 """Main Tester Script for the project."""
-#  GPL-3.0 license
-#  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 
 import os
-import subprocess
 import sys
 
 
 def tester00() -> None:
-  """Hello world"""
+  """LMAO"""
   stuff = [os, sys, 'hello world']
   for item in stuff:
     print(item)
 
 
+def tester01() -> None:
+  NewStr = type('NewStr', (str,), {})
+
+  # Create an instance of NewStr
+  newStr = NewStr('Hello, World!')
+  oldStr = str('Goodnight World!')
+
+  # Set a new attribute
+  try:
+    newStr.urMom = 'fat'
+    oldStr.urMom = 'very fat'
+  except AttributeError as e:
+    print(e)
+
+  print(newStr)
+  print(oldStr)
+
+
 if __name__ == '__main__':
-  res = subprocess.run(['python3', 'test_runner.py'],
-                       text=True,
-                       stderr=subprocess.PIPE,
-                       stdout=subprocess.PIPE, )
-  if res.returncode:
-    error_message = """LMAO"""
-    for (key, val) in res.__dict__.items():
-      error_message += f'{key}: {val}\n'
-    raise RuntimeError(error_message)
-  else:
-    print(res.stdout)
-    tester00()
+  tester01()
