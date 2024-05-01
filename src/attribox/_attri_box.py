@@ -6,7 +6,7 @@ creation. """
 from __future__ import annotations
 
 import sys
-from typing import Any
+from typing import Any, Callable
 
 from icecream import ic
 from vistutils.text import monoSpace
@@ -19,7 +19,6 @@ if sys.version_info.minor < 11:
 else:
   from typing import Self
 
-
 ic.configureOutput(includeContext=True, )
 
 
@@ -30,6 +29,21 @@ class AttriBox(TypedDescriptor):
 
   __positional_args__ = None
   __keyword_args__ = None
+
+  @staticmethod
+  def _getterFactory(attributeName: str, attributeType: type) -> Callable:
+    """Returns a function that returns the attribute. """
+
+    def func(self, ) -> Any:
+      attribute = getattr(self, attributeName, None)
+      if attribute is None:
+        raise AttributeError('The attribute is not set!')
+      if isinstance(attribute, attributeType):
+        return attribute
+      e = typeMsg('attribute', attribute, attributeType)
+      raise TypeError(e)
+
+    return func
 
   def __init__(self, *args, **kwargs) -> None:
     """Initializes the AttriBox instance. """
@@ -73,7 +87,24 @@ class AttriBox(TypedDescriptor):
         args.append(self._getFieldOwner())
       else:
         args.append(arg)
-    return innerClass(*args, **kwargs)
+    innerObject = innerClass(*args, **kwargs)
+    setattr(innerObject, '__outer_box__', self)
+    setattr(innerObject, '__owning_instance__', instance)
+    setattr(innerObject, '__field_owner__', self._getFieldOwner())
+    setattr(innerObject, '__field_name__', self._getFieldName())
+    setattr(innerObject,
+            'getFieldOwner',
+            self._getterFactory('__field_owner__', type))
+    setattr(innerObject,
+            'getFieldName',
+            self._getterFactory('__field_name__', str))
+    setattr(innerObject,
+            'getOuterBox',
+            self._getterFactory('__outer_box__', AttriBox))
+    setattr(innerObject,
+            'getOwningInstance',
+            self._getterFactory('__owning_instance__', object))
+    return innerObject
 
   def _typeGuard(self, item: object) -> Any:
     """Raises a TypeError if the item is not an instance of the inner
