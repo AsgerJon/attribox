@@ -95,16 +95,16 @@ class AttriBox(TypedDescriptor):
     setattr(innerObject, '__field_name__', self._getFieldName())
     setattr(innerObject,
             'getFieldOwner',
-            self._getterFactory('__field_owner__', type))
+            self._getterFactory(innerObject, '__field_owner__', type))
     setattr(innerObject,
             'getFieldName',
-            self._getterFactory('__field_name__', str))
+            self._getterFactory(innerObject, '__field_name__', str))
     setattr(innerObject,
             'getOuterBox',
-            self._getterFactory('__outer_box__', AttriBox))
+            self._getterFactory(innerObject, '__outer_box__', AttriBox))
     setattr(innerObject,
             'getOwningInstance',
-            self._getterFactory('__owning_instance__', object))
+            self._getterFactory(innerObject, '__owning_instance__', object))
     return innerObject
 
   def _typeGuard(self, item: object) -> Any:
