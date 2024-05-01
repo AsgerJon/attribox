@@ -6,11 +6,11 @@ creation. """
 from __future__ import annotations
 
 import sys
-from typing import Any, Callable
+from typing import Any
 from types import MethodType
 
 from icecream import ic
-from vistutils.text import monoSpace, stringList
+from vistutils.text import monoSpace
 from vistutils.waitaminute import typeMsg
 
 from attribox import TypedDescriptor, scope, this

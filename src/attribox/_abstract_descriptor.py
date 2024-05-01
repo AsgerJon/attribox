@@ -52,7 +52,7 @@ class AbstractDescriptor:
     instead implement the __instance_get__ method. """
     if instance is None:
       return self
-    return self.__instance_get__(instance, )
+    return self.__instance_get__(instance, owner)
 
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
