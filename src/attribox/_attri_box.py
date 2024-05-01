@@ -101,6 +101,9 @@ class AttriBox(TypedDescriptor):
     setattr(innerObject, '__owning_instance__', instance)
     setattr(innerObject, '__field_owner__', self._getFieldOwner())
     setattr(innerObject, '__field_name__', self._getFieldName())
+    setattr(innerObject, 'setHook', lambda *args2: [*args, ])
+    setattr(innerObject, 'delHook', lambda *args2: [*args, ])
+    setattr(innerObject, '__field_name__', self._getFieldName())
     setattr(innerObject,
             'getFieldOwner',
             self._getterFactory(innerObject, '__field_owner__', type))
