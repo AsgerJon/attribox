@@ -89,7 +89,15 @@ class AttriBox(TypedDescriptor):
       else:
         args.append(arg)
     innerObject = innerClass(*args, **kwargs)
-    setattr(innerObject, '__outer_box__', self)
+    try:
+      setattr(innerObject, '__outer_box__', self)
+    except AttributeError as attributeError:
+      try:
+        innerObject = type(innerClass.__name__, (innerClass, ), {})()
+        setattr(innerObject, '__outer_box__', self)
+      except Exception as exception:
+        raise exception from attributeError
+
     setattr(innerObject, '__owning_instance__', instance)
     setattr(innerObject, '__field_owner__', self._getFieldOwner())
     setattr(innerObject, '__field_name__', self._getFieldName())
