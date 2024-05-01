@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Exposed inner object to descriptor values from attribox instance.">
+    <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Implementation of setter and deleter functions in the AttriBox class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/attribox/_attri_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attri_box.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -14,17 +13,27 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2fsLS2TnwkBYrx7iIeSBOqewuHH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in main.py.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "settings.editor.selected.configurable": "copyright.profiles"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="Exposed inner object to descriptor values from attribox instance.">
@@ -42,11 +51,31 @@
       <option name="presentableId" value="Default" />
       <updated>1714584835064</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implementation of setter and deleter functions in the AttriBox class">
+      <option name="closed" value="true" />
+      <created>1714585246762</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714585246762</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Exposed inner object to descriptor values from attribox instance." />
-    <option name="LAST_COMMIT_MESSAGE" value="Exposed inner object to descriptor values from attribox instance." />
+    <MESSAGE value="Implementation of setter and deleter functions in the AttriBox class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementation of setter and deleter functions in the AttriBox class" />
   </component>
 </project>

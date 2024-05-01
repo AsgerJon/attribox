@@ -93,7 +93,7 @@ class AttriBox(TypedDescriptor):
       setattr(innerObject, '__outer_box__', self)
     except AttributeError as attributeError:
       try:
-        innerObject = type(innerClass.__name__, (innerClass, ), {})()
+        innerObject = type(innerClass.__name__, (innerClass,), {})()
         setattr(innerObject, '__outer_box__', self)
       except Exception as exception:
         raise exception from attributeError
@@ -176,8 +176,9 @@ class AttriBox(TypedDescriptor):
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
     via the owning instance. """
-    self._typeGuard(value)
     pvtName = self._getPrivateName()
+    oldValue = getattr(instance, pvtName, None)
+    self._typeGuard(value)
     setattr(instance, pvtName, value)
 
   def __delete__(self, instance: object) -> None:
@@ -185,5 +186,14 @@ class AttriBox(TypedDescriptor):
     the owning instance. """
     pvtName = self._getPrivateName()
     fieldName = self._getFieldName()
+    oldValue = getattr(instance, pvtName, None)
     delattr(instance, pvtName)
     delattr(instance, fieldName)
+
+  def setHook(self, oldValue: Any, newValue: Any) -> tuple:
+    """Hook for setting the attribute. """
+    return oldValue, newValue
+
+  def delHook(self, oldValue: Any) -> Any:
+    """Hook for deleting the attribute. """
+    return oldValue
