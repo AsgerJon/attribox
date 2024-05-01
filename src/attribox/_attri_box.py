@@ -46,6 +46,46 @@ class AttriBox(TypedDescriptor):
 
     return MethodType(func, obj)
 
+  @classmethod
+  def _null(cls, *args) -> Callable:
+    """If not arguments are provided, this method simply creates a null
+    function that does not do anything. If arguments are provided, a class
+    and a name is required. The class must have a callable at the given
+    name. If this callable is different from the one at 'object',
+    it is returned. If it is the same as the one at 'object', the null
+    function described above is, recursively, returned instead."""
+    type_, name = None, None
+    for arg in args:
+      if isinstance(arg, type):
+        if type_ is None:
+          type_ = arg
+      if isinstance(arg, str):
+        if name is None:
+          name = arg
+      if type_ is not None and name is not None:
+        break
+    else:
+      def func(self, *__, **_) -> None:
+        """This function does nothing, but it does not raise an error if
+        it sees an argument. It just does not care at all!"""
+
+      return func
+    if not isinstance(type_, type):
+      e = typeMsg('type_', type_, type)
+      raise TypeError(e)
+    if not isinstance(name, str):
+      e = typeMsg('name', name, str)
+      raise TypeError(e)
+
+    existingFunc = getattr(type_, name, None)
+    objectFunc = getattr(object, name, None)
+    if callable(existingFunc):
+      if objectFunc is existingFunc:
+        return cls._null()
+      return existingFunc
+    e = typeMsg('existingFunc', existingFunc, Callable)
+    raise TypeError(e)
+
   def __init__(self, *args, **kwargs) -> None:
     """Initializes the AttriBox instance. """
     if not kwargs.get('_root', False):
@@ -79,6 +119,12 @@ class AttriBox(TypedDescriptor):
   def _createInnerObject(self, instance: object) -> object:
     """Creates an instance of the inner class. """
     innerClass = self._getInnerClass()
+    clsName = 'AttriBox[%s]' % innerClass.__name__
+    clsBases = (innerClass,)
+    clsDict = {
+      '__init__': self._null(innerClass, '__init__'),
+      '__init_subclass__': self._null(innerClass, '__init_subclass__')}
+    cls = type(clsName, clsBases, clsDict)
     kwargs = self.__keyword_args__
     args = []
     for arg in self.__positional_args__:
@@ -88,7 +134,7 @@ class AttriBox(TypedDescriptor):
         args.append(self._getFieldOwner())
       else:
         args.append(arg)
-    innerObject = innerClass(*args, **kwargs)
+    innerObject = cls(*args, **kwargs)
     setattr(innerObject, '__outer_box__', self)
     setattr(innerObject, '__owning_instance__', instance)
     setattr(innerObject, '__field_owner__', self._getFieldOwner())
