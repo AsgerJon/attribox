@@ -127,9 +127,9 @@ class AttriBox(TypedDescriptor):
       was done by a professional in a safe environment. DO NOT TRY THIS
       AT HOME!"""
       if key not in ['__name__', '__qualname__']:
-        return oldGetAttr(self_, key)
+        return oldGetAttr.__func__(self_, key)
       if getattr(self_, '__attri_boxed_class__', None) is None:
-        return oldGetAttr(self_, key)
+        return oldGetAttr.__func__(self_, key)
       return getattr(getattr(self_, '__attri_boxed_class__'), key)
 
     clsName = 'AttriBox[%s]' % innerClass.__name__
