@@ -172,3 +172,18 @@ class AttriBox(TypedDescriptor):
       boxName = box._getFieldName()
       setattr(cls, boxName, box)
       cls.__set_name__(box, owner, boxName)
+
+  def __set__(self, instance: object, value: Any) -> None:
+    """The __set__ method is called when the descriptor is assigned a value
+    via the owning instance. """
+    self._typeGuard(value)
+    pvtName = self._getPrivateName()
+    setattr(instance, pvtName, value)
+
+  def __delete__(self, instance: object) -> None:
+    """The __delete__ method is called when the descriptor is deleted via
+    the owning instance. """
+    pvtName = self._getPrivateName()
+    fieldName = self._getFieldName()
+    delattr(instance, pvtName)
+    delattr(instance, fieldName)

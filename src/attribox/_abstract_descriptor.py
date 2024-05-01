@@ -54,21 +54,15 @@ class AbstractDescriptor:
       return self
     return self.__instance_get__(instance, )
 
+  @abstractmethod
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
     via the owning instance. """
-    e = """Subclasses may implement the setter and deleter, but the 
-    default implementation of __set__ and __delete__ raises the 
-    NotImplementedError. """
-    raise NotImplementedError(monoSpace(e))
 
+  @abstractmethod
   def __delete__(self, instance: object) -> None:
     """The __delete__ method is called when the descriptor is deleted via
     the owning instance. """
-    e = """Subclasses may implement the setter and deleter, but the 
-    default implementation of __set__ and __delete__ raises the 
-    NotImplementedError. """
-    raise NotImplementedError(monoSpace(e))
 
   @abstractmethod
   def __instance_get__(self, instance: object, owner: type) -> Any:
