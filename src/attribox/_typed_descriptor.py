@@ -6,6 +6,7 @@ belonging to instances of the owning class. """
 from __future__ import annotations
 
 from abc import abstractmethod
+from typing import Any
 
 from vistutils.waitaminute import typeMsg
 
@@ -45,6 +46,22 @@ class TypedDescriptor(DelayedDescriptor):
     if not isinstance(item, self._getInnerClass()):
       e = f"""The item is not an instance of the inner class. """
       raise TypeError(e)
+
+  @abstractmethod
+  def __get__(self, instance: object, owner: type) -> Any:
+    """The __get__ method is called when the descriptor is accessed via the
+    owning instance. Subclasses should not override this method, but should
+    instead implement the __instance_get__ method. """
+
+  @abstractmethod
+  def __set__(self, instance: object, value: Any) -> None:
+    """The __set__ method is called when the descriptor is assigned a value
+    via the owning instance. """
+
+  @abstractmethod
+  def __delete__(self, instance: object) -> None:
+    """The __delete__ method is called when the descriptor is deleted via
+    the owning instance. """
 
   @abstractmethod
   def _createInnerObject(self, instance: object) -> object:

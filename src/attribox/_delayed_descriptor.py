@@ -58,6 +58,22 @@ class DelayedDescriptor(AbstractDescriptor):
     conform to the type constraints, the method should raise a TypeError,
     otherwise it is ignored. """
 
+  @abstractmethod
+  def __get__(self, instance: object, owner: type) -> Any:
+    """The __get__ method is called when the descriptor is accessed via the
+    owning instance. Subclasses should not override this method, but should
+    instead implement the __instance_get__ method. """
+
+  @abstractmethod
+  def __set__(self, instance: object, value: Any) -> None:
+    """The __set__ method is called when the descriptor is assigned a value
+    via the owning instance. """
+
+  @abstractmethod
+  def __delete__(self, instance: object) -> None:
+    """The __delete__ method is called when the descriptor is deleted via
+    the owning instance. """
+
   def __instance_get__(self, instance: object, **kwargs) -> Any:
     """The __instance_get__ method is called when the descriptor is accessed
     via the owning instance. If the instance already own an inner object,

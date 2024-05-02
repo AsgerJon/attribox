@@ -30,6 +30,9 @@ class AttriBox(TypedDescriptor):
 
   __positional_args__ = None
   __keyword_args__ = None
+  __get_callbacks__ = None
+  __set_callbacks__ = None
+  __del_callbacks__ = None
 
   @staticmethod
   def _getterFactory(obj: object, name: str, type_: type) -> MethodType:
@@ -59,6 +62,51 @@ class AttriBox(TypedDescriptor):
       e = typeMsg('innerClass', innerClass, type)
       raise TypeError(e)
     self._setInnerClass(innerClass)
+
+  def _getGetCallbacks(self) -> list[Callable]:
+    """Getter-function for list of functions to be called on get."""
+    if self.__get_callbacks__ is None:
+      self.__get_callbacks__ = []
+    return self.__get_callbacks__
+
+  def _getSetCallbacks(self) -> list[Callable]:
+    """Getter-function for list of functions to be called on set."""
+    if self.__set_callbacks__ is None:
+      self.__set_callbacks__ = []
+    return self.__set_callbacks__
+
+  def _getDelCallbacks(self) -> list[Callable]:
+    """Getter-function for list of functions to be called on del."""
+    if self.__del_callbacks__ is None:
+      self.__del_callbacks__ = []
+    return self.__del_callbacks__
+
+  def notifyGet(self, callMeMaybe: Callable) -> Callable:
+    """Adds given callable to list of callables to be notified on get."""
+    self._getGetCallbacks().append(callMeMaybe)
+    return callMeMaybe
+
+  def notifySet(self, callMeMaybe: Callable) -> Callable:
+    """Adds given callable to list of callables to be notified on set."""
+    self._getSetCallbacks().append(callMeMaybe)
+    return callMeMaybe
+
+  def notifyDel(self, callMeMaybe: Callable) -> Callable:
+    """Adds given callable to list of callables to be notified on del."""
+    self._getDelCallbacks().append(callMeMaybe)
+    return callMeMaybe
+
+  def ONGET(self, callMeMaybe: Callable) -> Callable:
+    """Decorator for adding a function to the get callbacks."""
+    return self.notifyGet(callMeMaybe)
+
+  def ONSET(self, callMeMaybe: Callable) -> Callable:
+    """Decorator for adding a function to the set callbacks."""
+    return self.notifySet(callMeMaybe)
+
+  def ONDEL(self, callMeMaybe: Callable) -> Callable:
+    """Decorator for adding a function to the del callbacks."""
+    return self.notifyDel(callMeMaybe)
 
   @classmethod
   def __class_getitem__(cls, innerClass: type) -> Self:
@@ -176,6 +224,17 @@ class AttriBox(TypedDescriptor):
       setattr(cls, boxName, box)
       cls.__set_name__(box, owner, boxName)
 
+  def __get__(self, instance: object, owner: type) -> Any:
+    """The __get__ method is called when the descriptor is accessed via the
+    owning instance. Subclasses should not override this method, but should
+    instead implement the __instance_get__ method. """
+    if instance is None:
+      return self
+    val = self.__instance_get__(instance, )
+    for callMeMaybe in self._getGetCallbacks():
+      callMeMaybe(val)
+    return val
+
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
     via the owning instance. """
@@ -183,6 +242,8 @@ class AttriBox(TypedDescriptor):
     oldValue = getattr(instance, pvtName, None)
     self._typeGuard(value)
     setattr(instance, pvtName, value)
+    for callMeMaybe in self._getSetCallbacks():
+      callMeMaybe(oldValue, value)
 
   def __delete__(self, instance: object) -> None:
     """The __delete__ method is called when the descriptor is deleted via
@@ -192,3 +253,5 @@ class AttriBox(TypedDescriptor):
     oldValue = getattr(instance, pvtName, None)
     delattr(instance, pvtName)
     delattr(instance, fieldName)
+    for callMeMaybe in self._getDelCallbacks():
+      callMeMaybe(oldValue)

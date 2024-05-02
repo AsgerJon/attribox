@@ -46,13 +46,11 @@ class AbstractDescriptor:
     self.__field_name__ = name
     self.__field_owner__ = owner
 
+  @abstractmethod
   def __get__(self, instance: object, owner: type) -> Any:
     """The __get__ method is called when the descriptor is accessed via the
     owning instance. Subclasses should not override this method, but should
     instead implement the __instance_get__ method. """
-    if instance is None:
-      return self
-    return self.__instance_get__(instance, )
 
   @abstractmethod
   def __set__(self, instance: object, value: Any) -> None:
