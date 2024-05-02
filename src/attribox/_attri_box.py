@@ -14,6 +14,7 @@ from vistutils.text import monoSpace, stringList
 from vistutils.waitaminute import typeMsg
 
 from attribox import TypedDescriptor, scope, this
+from morevistutils import setterFactory, getterFactory
 
 if sys.version_info.minor < 11:
   from typing_extensions import Self
@@ -35,19 +36,39 @@ class AttriBox(TypedDescriptor):
   __del_callbacks__ = None
 
   @staticmethod
-  def _getterFactory(obj: object, name: str, type_: type) -> MethodType:
-    """Returns a function that returns the attribute. """
+  def validateBoxed(obj: object) -> bool:
+    """Tests if an object requires boxing. """
+    names = ['__outer_box__', '__owning_instance__', '__field_owner__',
+             '__field_name__']
+    Names = ['OuterBox', 'OwningInstance', 'FieldOwner', 'FieldName']
+    testNames = []
+    for (name, Name) in zip(names, Names):
+      testNames.append(name)
+      testNames.append('get%s' % Name)
+      testNames.append('set%s' % Name)
+    for testName in testNames:
+      if not hasattr(obj, testName):
+        return False
+    return True
 
-    def func(self, ) -> Any:
-      attribute = getattr(self, name, None)
-      if attribute is None:
-        raise AttributeError('The attribute is not set!')
-      if isinstance(attribute, type_):
-        return attribute
-      e = typeMsg('attribute', attribute, type_)
-      raise TypeError(e)
+  @staticmethod
+  def boxObject(obj: object, ) -> object:
+    """This method adds to the given object the attributes and methods
+    required for use with AttriBox. Please note that instances of
+    subclasses of AttriClass are exempted from this."""
 
-    return MethodType(func, obj)
+    names = ['__outer_box__', '__owning_instance__', '__field_owner__',
+             '__field_name__']
+    Names = ['OuterBox', 'OwningInstance', 'FieldOwner', 'FieldName']
+    types = [TypedDescriptor, object, type, str]
+
+    for (name, Name, type_) in zip(names, Names, types):
+      setattr(obj, name, None)
+      getter = MethodType(getterFactory(name, type_), obj)
+      setter = MethodType(setterFactory(name, type_), obj)
+      setattr(obj, 'get%s' % Name, getter)
+      setattr(obj, 'set%s' % Name, setter)
+    return obj
 
   def __init__(self, *args, **kwargs) -> None:
     """Initializes the AttriBox instance. """
@@ -124,10 +145,9 @@ class AttriBox(TypedDescriptor):
     object. """
     return '__%s_value__' % (self._getFieldName(),)
 
-  def _createInnerObject(self, instance: object) -> object:
-    """Creates an instance of the inner class. """
-    innerClass = self._getInnerClass()
-    kwargs = self.__keyword_args__
+  def _getArgs(self, instance: object) -> list:
+    """Getter-function for the positional arguments. This includes 'self'
+    if the 'this' object were included when instantiating the AttriBox."""
     args = []
     for arg in self.__positional_args__:
       if arg is this:
@@ -136,35 +156,16 @@ class AttriBox(TypedDescriptor):
         args.append(self._getFieldOwner())
       else:
         args.append(arg)
-    innerObject = innerClass(*args, **kwargs)
-    try:
-      setattr(innerObject, '__outer_box__', self)
-    except AttributeError as attributeError:
-      try:
-        innerObject = type(innerClass.__name__, (innerClass,), {})()
-        setattr(innerObject, '__outer_box__', self)
-      except Exception as exception:
-        raise exception from attributeError
+    return args
 
-    setattr(innerObject, '__owning_instance__', instance)
-    setattr(innerObject, '__field_owner__', self._getFieldOwner())
-    setattr(innerObject, '__field_name__', self._getFieldName())
-    setattr(innerObject, 'setHook', lambda *args2: [*args, ])
-    setattr(innerObject, 'delHook', lambda *args2: [*args, ])
-    setattr(innerObject, '__field_name__', self._getFieldName())
-    setattr(innerObject,
-            'getFieldOwner',
-            self._getterFactory(innerObject, '__field_owner__', type))
-    setattr(innerObject,
-            'getFieldName',
-            self._getterFactory(innerObject, '__field_name__', str))
-    setattr(innerObject,
-            'getOuterBox',
-            self._getterFactory(innerObject, '__outer_box__', AttriBox))
-    setattr(innerObject,
-            'getOwningInstance',
-            self._getterFactory(innerObject, '__owning_instance__', object))
-    return innerObject
+  def _getKwargs(self) -> dict:
+    """Getter-function for the keyword arguments. """
+    return {**self.__keyword_args__, }
+
+  def _createInnerObject(self, instance: object) -> object:
+    """Creates an instance of the inner class. """
+    innerClass = self._getInnerClass()
+    kwargs = self.__keyword_args__
 
   def _typeGuard(self, item: object) -> Any:
     """Raises a TypeError if the item is not an instance of the inner

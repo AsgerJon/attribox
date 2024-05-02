@@ -40,12 +40,10 @@ class TypedDescriptor(DelayedDescriptor):
       raise TypeError(e)
     self.__inner_class__ = innerClass
 
+  @abstractmethod
   def typeGuard(self, item: object) -> None:
     """Raises a TypeError if the item is not an instance of the inner
     class. """
-    if not isinstance(item, self._getInnerClass()):
-      e = f"""The item is not an instance of the inner class. """
-      raise TypeError(e)
 
   @abstractmethod
   def __get__(self, instance: object, owner: type) -> Any:
