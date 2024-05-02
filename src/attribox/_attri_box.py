@@ -192,11 +192,3 @@ class AttriBox(TypedDescriptor):
     oldValue = getattr(instance, pvtName, None)
     delattr(instance, pvtName)
     delattr(instance, fieldName)
-
-  def setHook(self, oldValue: Any, newValue: Any) -> tuple:
-    """Hook for setting the attribute. """
-    return oldValue, newValue
-
-  def delHook(self, oldValue: Any) -> Any:
-    """Hook for deleting the attribute. """
-    return oldValue
