@@ -232,7 +232,7 @@ class AttriBox(TypedDescriptor):
       return self
     val = self.__instance_get__(instance, )
     for callMeMaybe in self._getGetCallbacks():
-      callMeMaybe(val)
+      callMeMaybe(instance, val)
     return val
 
   def __set__(self, instance: object, value: Any) -> None:
@@ -243,7 +243,7 @@ class AttriBox(TypedDescriptor):
     self._typeGuard(value)
     setattr(instance, pvtName, value)
     for callMeMaybe in self._getSetCallbacks():
-      callMeMaybe(oldValue, value)
+      callMeMaybe(instance, oldValue, value)
 
   def __delete__(self, instance: object) -> None:
     """The __delete__ method is called when the descriptor is deleted via
@@ -254,4 +254,4 @@ class AttriBox(TypedDescriptor):
     delattr(instance, pvtName)
     delattr(instance, fieldName)
     for callMeMaybe in self._getDelCallbacks():
-      callMeMaybe(oldValue)
+      callMeMaybe(instance, oldValue)
