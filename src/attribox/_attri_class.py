@@ -57,6 +57,7 @@ class AttriClass:
     """Setter-function for the owning instance. """
     if self.__owning_instance__ is not None:
       e = """The owning instance has already been assigned!"""
+      raise AttributeError(e)
     self.__owning_instance__ = instance
 
   def getOuterBox(self, ) -> object:

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 
+from vistutils.text import monoSpace
 from vistutils.waitaminute import typeMsg
 
 from attribox import DelayedDescriptor
@@ -27,8 +28,9 @@ class TypedDescriptor(DelayedDescriptor):
     if isinstance(self.__inner_class__, type):
       if hasattr(self.__inner_class__, '__ready_box__'):
         return self.__inner_class__
-      e = """Dynamic subclass creation is not yet implemented!"""
-      raise NotImplementedError(e)
+      e = """Tried to dynamically subclass '%s', but dynamic subclassing 
+      is not yet implemented!""" % self.__inner_class__.__name__
+      raise NotImplementedError(monoSpace(e))
     e = typeMsg('__inner_class__', self.__inner_class__, type)
     raise TypeError(e)
 
@@ -41,11 +43,6 @@ class TypedDescriptor(DelayedDescriptor):
       e = typeMsg('innerClass', innerClass, type)
       raise TypeError(e)
     self.__inner_class__ = innerClass
-
-  @abstractmethod
-  def typeGuard(self, item: object) -> None:
-    """Raises a TypeError if the item is not an instance of the inner
-    class. """
 
   @abstractmethod
   def _createInnerObject(self, instance: object) -> object:

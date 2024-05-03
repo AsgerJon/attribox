@@ -52,7 +52,7 @@ class AbstractDescriptor:
     instead implement the __instance_get__ method. """
     if instance is None:
       return self
-    return self.__instance_get__(instance, )
+    return self.__instance_get__(instance, owner)
 
   @abstractmethod
   def __set__(self, instance: object, value: Any) -> None:
@@ -68,11 +68,3 @@ class AbstractDescriptor:
   def __instance_get__(self, instance: object, owner: type) -> Any:
     """The __instance_get__ method is called when the descriptor is accessed
     via the owning instance. """
-
-  def __str__(self) -> str:
-    """This default implementation names the type of the owning class,
-    name of the descriptor instance and finally the descriptor field
-    type."""
-    ownerName = self._getFieldOwner().__name__
-    fieldName = self._getFieldName()
-    return '%s.%s' % (ownerName, fieldName)

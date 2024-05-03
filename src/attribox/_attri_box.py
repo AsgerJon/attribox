@@ -7,10 +7,9 @@ from __future__ import annotations
 
 import sys
 from typing import Any, Callable, TYPE_CHECKING, Never
-from types import MethodType
 
 from icecream import ic
-from vistutils.text import monoSpace, stringList
+from vistutils.text import monoSpace
 from vistutils.waitaminute import typeMsg
 
 from attribox import TypedDescriptor, scope, this
@@ -143,14 +142,6 @@ class AttriBox(TypedDescriptor):
     innerObject.setFieldName(self._getFieldName())
     return innerObject
 
-  def _typeGuard(self, item: object) -> Any:
-    """Raises a TypeError if the item is not an instance of the inner
-    class. """
-    innerClass = self._getInnerClass()
-    if not isinstance(item, innerClass):
-      e = typeMsg('item', item, innerClass)
-      raise TypeError(monoSpace(e))
-
   def __str__(self, ) -> str:
     ownerName = self._getFieldOwner().__name__
     fieldName = self._getFieldName()
@@ -212,15 +203,15 @@ class AttriBox(TypedDescriptor):
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
     via the owning instance. """
-    self._typeGuard(value)
     pvtName = self._getPrivateName()
     oldValue = getattr(instance, pvtName, None)
     setattr(instance, pvtName, value)
     for callback in self._getSetCallbacks():
       callback(instance, oldValue, value)
 
-  def __delete__(self, *_) -> Never:
-    """The __delete__ method is called when the descriptor is deleted via
-    the owning instance. """
-    e = """AttriBox does not support accessor deletion!"""
-    raise NotImplementedError(e)
+  def __delete__(self, instance: object, ) -> Never:
+    """Deleter-function not yet implemented!"""
+    e = """Tried deleting the '%s' attribute from instance of class '%s', 
+    but this deleter-function is not yet implemented!"""
+    msg = e % (self._getFieldName(), instance.__class__.__name__)
+    raise NotImplementedError(monoSpace(msg))

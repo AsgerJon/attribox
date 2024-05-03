@@ -50,14 +50,7 @@ class DelayedDescriptor(AbstractDescriptor):
     remove some flexibility to create virtual attributes that does not
     reflect an actual object. """
 
-  @abstractmethod
-  def _typeGuard(self, item: object) -> Any:
-    """Optional type guard. Subclasses may implement this method to enforce
-    type constraints on the inner object. If the inner object does not
-    conform to the type constraints, the method should raise a TypeError,
-    otherwise it is ignored. """
-
-  def __instance_get__(self, instance: object, **kwargs) -> Any:
+  def __instance_get__(self, instance: object, owner: type, **kwargs) -> Any:
     """The __instance_get__ method is called when the descriptor is accessed
     via the owning instance. If the instance already own an inner object,
     the inner object is returned. Otherwise, an inner object is created
@@ -75,5 +68,4 @@ class DelayedDescriptor(AbstractDescriptor):
     if innerObject is None:
       e = """Failed to create inner object!"""
       raise AttributeError(e)
-    self._typeGuard(innerObject)
     return innerObject
