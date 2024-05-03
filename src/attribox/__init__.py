@@ -7,10 +7,3 @@ other classes without requiring implementation of accessor methods. """
 #  GPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
-
-from ._this_scope import this, scope, Singleton
-from ._abstract_descriptor import AbstractDescriptor
-from ._delayed_descriptor import DelayedDescriptor
-from ._typed_descriptor import TypedDescriptor
-from ._notif_box import NotifBox
-from ._attri_box import AttriBox
