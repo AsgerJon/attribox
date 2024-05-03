@@ -63,7 +63,7 @@ class DelayedDescriptor(AbstractDescriptor):
         raise RecursionError
       innerObject = self._createInnerObject(instance)
       setattr(instance, pvtName, innerObject)
-      return self.__instance_get__(instance, _recursion=True)
+      return self.__instance_get__(instance, owner, _recursion=True)
     innerObject = getattr(instance, pvtName, None)
     if innerObject is None:
       e = """Failed to create inner object!"""
