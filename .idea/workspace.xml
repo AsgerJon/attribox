@@ -7,15 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Implementation of dynamic subclass creation.">
-      <change afterPath="$PROJECT_DIR$/tester_class_01.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tester_class_02.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/attribox.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/attribox.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" afterDir="false" />
-    </list>
+    <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Implementation of dynamic subclass creation." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

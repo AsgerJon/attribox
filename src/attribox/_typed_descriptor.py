@@ -7,7 +7,6 @@ from __future__ import annotations
 
 from abc import abstractmethod
 
-from vistutils.text import monoSpace
 from vistutils.waitaminute import typeMsg
 
 from attribox import DelayedDescriptor, AttriClass
