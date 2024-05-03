@@ -12,4 +12,5 @@ from ._this_scope import this, scope, Singleton
 from ._abstract_descriptor import AbstractDescriptor
 from ._delayed_descriptor import DelayedDescriptor
 from ._typed_descriptor import TypedDescriptor
+from ._notif_box import NotifBox
 from ._attri_box import AttriBox

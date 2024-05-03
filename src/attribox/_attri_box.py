@@ -31,9 +31,6 @@ class AttriBox(TypedDescriptor):
 
   __positional_args__ = None
   __keyword_args__ = None
-  __get_callbacks__ = None
-  __set_callbacks__ = None
-  __del_callbacks__ = None
 
   @staticmethod
   def validateBoxed(obj: object) -> bool:
@@ -83,51 +80,6 @@ class AttriBox(TypedDescriptor):
       e = typeMsg('innerClass', innerClass, type)
       raise TypeError(e)
     self._setInnerClass(innerClass)
-
-  def _getGetCallbacks(self) -> list[Callable]:
-    """Getter-function for list of functions to be called on get."""
-    if self.__get_callbacks__ is None:
-      self.__get_callbacks__ = []
-    return self.__get_callbacks__
-
-  def _getSetCallbacks(self) -> list[Callable]:
-    """Getter-function for list of functions to be called on set."""
-    if self.__set_callbacks__ is None:
-      self.__set_callbacks__ = []
-    return self.__set_callbacks__
-
-  def _getDelCallbacks(self) -> list[Callable]:
-    """Getter-function for list of functions to be called on del."""
-    if self.__del_callbacks__ is None:
-      self.__del_callbacks__ = []
-    return self.__del_callbacks__
-
-  def notifyGet(self, callMeMaybe: Callable) -> Callable:
-    """Adds given callable to list of callables to be notified on get."""
-    self._getGetCallbacks().append(callMeMaybe)
-    return callMeMaybe
-
-  def notifySet(self, callMeMaybe: Callable) -> Callable:
-    """Adds given callable to list of callables to be notified on set."""
-    self._getSetCallbacks().append(callMeMaybe)
-    return callMeMaybe
-
-  def notifyDel(self, callMeMaybe: Callable) -> Callable:
-    """Adds given callable to list of callables to be notified on del."""
-    self._getDelCallbacks().append(callMeMaybe)
-    return callMeMaybe
-
-  def ONGET(self, callMeMaybe: Callable) -> Callable:
-    """Decorator for adding a function to the get callbacks."""
-    return self.notifyGet(callMeMaybe)
-
-  def ONSET(self, callMeMaybe: Callable) -> Callable:
-    """Decorator for adding a function to the set callbacks."""
-    return self.notifySet(callMeMaybe)
-
-  def ONDEL(self, callMeMaybe: Callable) -> Callable:
-    """Decorator for adding a function to the del callbacks."""
-    return self.notifyDel(callMeMaybe)
 
   @classmethod
   def __class_getitem__(cls, innerClass: type) -> Self:
