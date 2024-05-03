@@ -149,7 +149,6 @@ class AttriBox(TypedDescriptor):
     return '%s.%s: %s' % (ownerName, fieldName, innerName)
 
   def __repr__(self, ) -> str:
-    ownerName = self._getFieldOwner().__name__
     fieldName = self._getFieldName()
     innerName = self._getInnerClass().__name__
     args = ', '.join([*self.__positional_args__, *self.__keyword_args__])
