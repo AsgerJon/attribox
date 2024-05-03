@@ -6,7 +6,7 @@ creation. """
 from __future__ import annotations
 
 import sys
-from typing import Any, Callable
+from typing import Any, Callable, TYPE_CHECKING, Never
 from types import MethodType
 
 from icecream import ic
@@ -20,6 +20,11 @@ if sys.version_info.minor < 11:
 else:
   from typing import Self
 
+if TYPE_CHECKING:
+  from attribox import AttriClass
+else:
+  AttriClass = object
+
 ic.configureOutput(includeContext=True, )
 
 
@@ -30,21 +35,54 @@ class AttriBox(TypedDescriptor):
 
   __positional_args__ = None
   __keyword_args__ = None
+  __get_callbacks__ = None
+  __set_callbacks__ = None
+  __del_callbacks__ = None
 
-  @staticmethod
-  def _getterFactory(obj: object, name: str, type_: type) -> MethodType:
-    """Returns a function that returns the attribute. """
+  def _getGetCallbacks(self) -> list[Callable]:
+    """Getter-function for list of functions to be called on get."""
+    if self.__get_callbacks__ is None:
+      self.__get_callbacks__ = []
+    return self.__get_callbacks__
 
-    def func(self, ) -> Any:
-      attribute = getattr(self, name, None)
-      if attribute is None:
-        raise AttributeError('The attribute is not set!')
-      if isinstance(attribute, type_):
-        return attribute
-      e = typeMsg('attribute', attribute, type_)
-      raise TypeError(e)
+  def _getSetCallbacks(self) -> list[Callable]:
+    """Getter-function for list of functions to be called on set."""
+    if self.__set_callbacks__ is None:
+      self.__set_callbacks__ = []
+    return self.__set_callbacks__
 
-    return MethodType(func, obj)
+  def _getDelCallbacks(self) -> list[Callable]:
+    """Getter-function for list of functions to be called on del."""
+    if self.__del_callbacks__ is None:
+      self.__del_callbacks__ = []
+    return self.__del_callbacks__
+
+  def notifyGet(self, callMeMaybe: Callable) -> Callable:
+    """Adds given callable to list of callables to be notified on get."""
+    self._getGetCallbacks().append(callMeMaybe)
+    return callMeMaybe
+
+  def notifySet(self, callMeMaybe: Callable) -> Callable:
+    """Adds given callable to list of callables to be notified on set."""
+    self._getSetCallbacks().append(callMeMaybe)
+    return callMeMaybe
+
+  def notifyDel(self, callMeMaybe: Callable) -> Callable:
+    """Adds given callable to list of callables to be notified on del."""
+    self._getDelCallbacks().append(callMeMaybe)
+    return callMeMaybe
+
+  def ONGET(self, callMeMaybe: Callable) -> Callable:
+    """Decorator for adding a function to the get callbacks."""
+    return self.notifyGet(callMeMaybe)
+
+  def ONSET(self, callMeMaybe: Callable) -> Callable:
+    """Decorator for adding a function to the set callbacks."""
+    return self.notifySet(callMeMaybe)
+
+  def ONDEL(self, callMeMaybe: Callable) -> Callable:
+    """Decorator for adding a function to the del callbacks."""
+    return self.notifyDel(callMeMaybe)
 
   def __init__(self, *args, **kwargs) -> None:
     """Initializes the AttriBox instance. """
@@ -76,43 +114,33 @@ class AttriBox(TypedDescriptor):
     object. """
     return '__%s_value__' % (self._getFieldName(),)
 
+  def _getArgs(self, instance: object) -> list:
+    """Returns the arguments used to create the inner object. """
+    out = []
+    for arg in self.__positional_args__:
+      if arg is this:
+        out.append(instance)
+      elif arg is scope:
+        out.append(self._getFieldOwner())
+      else:
+        out.append(arg)
+    return out
+
+  def _getKwargs(self, ) -> dict:
+    """Returns the keyword arguments used to create the inner object. """
+    return self.__keyword_args__
+
   def _createInnerObject(self, instance: object) -> object:
     """Creates an instance of the inner class. """
     innerClass = self._getInnerClass()
-    kwargs = self.__keyword_args__
-    args = []
-    for arg in self.__positional_args__:
-      if arg is this:
-        args.append(instance)
-      elif arg is scope:
-        args.append(self._getFieldOwner())
-      else:
-        args.append(arg)
+    args, kwargs = self._getArgs(instance), self._getKwargs()
     innerObject = innerClass(*args, **kwargs)
-    try:
-      setattr(innerObject, '__outer_box__', self)
-    except AttributeError as attributeError:
-      try:
-        innerObject = type(innerClass.__name__, (innerClass, ), {})()
-        setattr(innerObject, '__outer_box__', self)
-      except Exception as exception:
-        raise exception from attributeError
-
-    setattr(innerObject, '__owning_instance__', instance)
-    setattr(innerObject, '__field_owner__', self._getFieldOwner())
-    setattr(innerObject, '__field_name__', self._getFieldName())
-    setattr(innerObject,
-            'getFieldOwner',
-            self._getterFactory(innerObject, '__field_owner__', type))
-    setattr(innerObject,
-            'getFieldName',
-            self._getterFactory(innerObject, '__field_name__', str))
-    setattr(innerObject,
-            'getOuterBox',
-            self._getterFactory(innerObject, '__outer_box__', AttriBox))
-    setattr(innerObject,
-            'getOwningInstance',
-            self._getterFactory(innerObject, '__owning_instance__', object))
+    if TYPE_CHECKING:
+      assert isinstance(innerObject, AttriClass)
+    innerObject.setOuterBox(self)
+    innerObject.setOwningInstance(instance)
+    innerObject.setFieldOwner(self._getFieldOwner())
+    innerObject.setFieldName(self._getFieldName())
     return innerObject
 
   def _typeGuard(self, item: object) -> Any:
@@ -173,17 +201,26 @@ class AttriBox(TypedDescriptor):
       setattr(cls, boxName, box)
       cls.__set_name__(box, owner, boxName)
 
+  def __get__(self, instance: object, owner: type) -> Any:
+    """The __get__ method is called when the descriptor is accessed via the
+    owning instance. """
+    value = TypedDescriptor.__get__(self, instance, owner)
+    for callback in self._getGetCallbacks():
+      callback(instance, value)
+    return value
+
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
     via the owning instance. """
     self._typeGuard(value)
     pvtName = self._getPrivateName()
+    oldValue = getattr(instance, pvtName, None)
     setattr(instance, pvtName, value)
+    for callback in self._getSetCallbacks():
+      callback(instance, oldValue, value)
 
-  def __delete__(self, instance: object) -> None:
+  def __delete__(self, *_) -> Never:
     """The __delete__ method is called when the descriptor is deleted via
     the owning instance. """
-    pvtName = self._getPrivateName()
-    fieldName = self._getFieldName()
-    delattr(instance, pvtName)
-    delattr(instance, fieldName)
+    e = """AttriBox does not support accessor deletion!"""
+    raise NotImplementedError(e)

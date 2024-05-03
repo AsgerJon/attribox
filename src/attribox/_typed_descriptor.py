@@ -25,7 +25,10 @@ class TypedDescriptor(DelayedDescriptor):
       e = """The inner class has not been assigned. """
       raise AttributeError(e)
     if isinstance(self.__inner_class__, type):
-      return self.__inner_class__
+      if hasattr(self.__inner_class__, '__ready_box__'):
+        return self.__inner_class__
+      e = """Dynamic subclass creation is not yet implemented!"""
+      raise NotImplementedError(e)
     e = typeMsg('__inner_class__', self.__inner_class__, type)
     raise TypeError(e)
 
@@ -39,12 +42,10 @@ class TypedDescriptor(DelayedDescriptor):
       raise TypeError(e)
     self.__inner_class__ = innerClass
 
+  @abstractmethod
   def typeGuard(self, item: object) -> None:
     """Raises a TypeError if the item is not an instance of the inner
     class. """
-    if not isinstance(item, self._getInnerClass()):
-      e = f"""The item is not an instance of the inner class. """
-      raise TypeError(e)
 
   @abstractmethod
   def _createInnerObject(self, instance: object) -> object:

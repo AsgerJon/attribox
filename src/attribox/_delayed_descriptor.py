@@ -15,8 +15,6 @@ from abc import abstractmethod
 from typing import Any
 
 from icecream import ic
-from vistutils.text import monoSpace
-from vistutils.waitaminute import typeMsg
 
 from attribox import AbstractDescriptor
 
@@ -52,6 +50,7 @@ class DelayedDescriptor(AbstractDescriptor):
     remove some flexibility to create virtual attributes that does not
     reflect an actual object. """
 
+  @abstractmethod
   def _typeGuard(self, item: object) -> Any:
     """Optional type guard. Subclasses may implement this method to enforce
     type constraints on the inner object. If the inner object does not

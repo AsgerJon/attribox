@@ -8,6 +8,7 @@ other classes without requiring implementation of accessor methods. """
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 
+from ._attri_class import AttriClass
 from ._this_scope import this, scope, Singleton
 from ._abstract_descriptor import AbstractDescriptor
 from ._delayed_descriptor import DelayedDescriptor

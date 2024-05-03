@@ -5,26 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Exposed inner object to descriptor values from attribox instance.">
+      <change afterPath="$PROJECT_DIR$/src/attribox/_attri_class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/attribox/_attri_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attri_box.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_typed_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_typed_descriptor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2fsLS2TnwkBYrx7iIeSBOqewuHH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "settings.editor.selected.configurable": "actions.on.save",
+    "update.copyright.on.save": "true"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="Exposed inner object to descriptor values from attribox instance.">
