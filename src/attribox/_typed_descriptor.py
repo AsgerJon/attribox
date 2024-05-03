@@ -10,7 +10,7 @@ from abc import abstractmethod
 from vistutils.text import monoSpace
 from vistutils.waitaminute import typeMsg
 
-from attribox import DelayedDescriptor
+from attribox import DelayedDescriptor, AttriClass
 
 
 class TypedDescriptor(DelayedDescriptor):
@@ -28,9 +28,10 @@ class TypedDescriptor(DelayedDescriptor):
     if isinstance(self.__inner_class__, type):
       if hasattr(self.__inner_class__, '__ready_box__'):
         return self.__inner_class__
-      e = """Tried to dynamically subclass '%s', but dynamic subclassing 
-      is not yet implemented!""" % self.__inner_class__.__name__
-      raise NotImplementedError(monoSpace(e))
+      name = self.__inner_class__.__name__
+      bases = (self.__inner_class__,)
+      namespace = {**AttriClass.__dict__, }
+      return type(name, bases, namespace)
     e = typeMsg('__inner_class__', self.__inner_class__, type)
     raise TypeError(e)
 
