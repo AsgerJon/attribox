@@ -64,14 +64,12 @@ class AbstractDescriptor:
       return self
     return self.__instance_get__(instance, owner)
 
-  @abstractmethod
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
     via the owning instance. The default implementation raises an error."""
     e = """The '%s' descriptor class does not implement a setter!"""
     raise TypeError(e % self.__class__.__name__)
 
-  @abstractmethod
   def __delete__(self, instance: object) -> None:
     """The __delete__ method is called when the descriptor is deleted via
     the owning instance. The default implementation raises an error."""
