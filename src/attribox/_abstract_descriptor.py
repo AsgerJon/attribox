@@ -51,6 +51,11 @@ class AbstractDescriptor:
     self.__field_name__ = name
     self.__field_owner__ = owner
 
+  @abstractmethod
+  def __instance_get__(self, instance: object, owner: type) -> Any:
+    """The __instance_get__ method is called when the descriptor is accessed
+    via the owning instance. """
+
   def __get__(self, instance: object, owner: type) -> Any:
     """The __get__ method is called when the descriptor is accessed via the
     owning instance. Subclasses should not override this method, but should
@@ -62,14 +67,13 @@ class AbstractDescriptor:
   @abstractmethod
   def __set__(self, instance: object, value: Any) -> None:
     """The __set__ method is called when the descriptor is assigned a value
-    via the owning instance. """
+    via the owning instance. The default implementation raises an error."""
+    e = """The '%s' descriptor class does not implement a setter!"""
+    raise TypeError(e % self.__class__.__name__)
 
   @abstractmethod
   def __delete__(self, instance: object) -> None:
     """The __delete__ method is called when the descriptor is deleted via
-    the owning instance. """
-
-  @abstractmethod
-  def __instance_get__(self, instance: object, owner: type) -> Any:
-    """The __instance_get__ method is called when the descriptor is accessed
-    via the owning instance. """
+    the owning instance. The default implementation raises an error."""
+    e = """The '%s' descriptor class does not implement a deleter!"""
+    raise TypeError(e % self.__class__.__name__)
