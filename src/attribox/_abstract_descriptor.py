@@ -43,7 +43,7 @@ class AbstractDescriptor:
   def _getPrivateName(self, ) -> str:
     """Returns the name of the private attribute used to store the inner
     object. """
-    return '__%s_value__' % (self._getFieldName(),)
+    return '__%s_value__' % (self.__field_name__,)
 
   def __set_name__(self, owner: type, name: str) -> None:
     """The __set_name__ method is called when the descriptor is assigned to

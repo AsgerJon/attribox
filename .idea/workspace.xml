@@ -7,12 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Created Attrify decorator">
+    <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Moved default implementation of private name getter function to the abstract description class.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_main.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/attribox/_attri_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attri_box.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/attribox/_typed_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_typed_descriptor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,20 +43,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests in main.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python._attri_box.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tester_class_01.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/AsgerJon/PycharmProjects/attribox/main.py&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;update.copyright.on.save&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in main.py.executor": "Run",
+    "Python._attri_box.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.tester_class_01.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/home/AsgerJon/PycharmProjects/attribox/main.py",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "update.copyright.on.save": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="attribox" />
@@ -213,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714945452501</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Moved default implementation of private name getter function to the abstract description class.">
+      <option name="closed" value="true" />
+      <created>1715727023356</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1715727023356</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,6 +241,7 @@
     <MESSAGE value="Adds setter functionality and accessor notifiers assignable with @box.ONGET such that the decorated function is called every time box.get is called. However, support is restricted to classes implementing attributes and methods defined in AttriClass. A future version will add dynamic subclassing and the deleter function." />
     <MESSAGE value="Implementation of dynamic subclass creation." />
     <MESSAGE value="Created Attrify decorator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created Attrify decorator" />
+    <MESSAGE value="Moved default implementation of private name getter function to the abstract description class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved default implementation of private name getter function to the abstract description class." />
   </component>
 </project>

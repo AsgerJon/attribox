@@ -8,7 +8,6 @@ Install `AttriBox` easily with pip:
 pip install attribox
 ```
 
-```markdown
 ## Quick Start
 
 Imagine having nested custom classes with a requirement of descriptor
