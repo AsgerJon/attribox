@@ -40,6 +40,11 @@ class AbstractDescriptor:
     e = typeMsg('__field_owner__', self.__field_owner__, type)
     raise TypeError(monoSpace(e))
 
+  def _getPrivateName(self, ) -> str:
+    """Returns the name of the private attribute used to store the inner
+    object. """
+    return '__%s_value__' % (self._getFieldName(),)
+
   def __set_name__(self, owner: type, name: str) -> None:
     """The __set_name__ method is called when the descriptor is assigned to
     a class attribute. """

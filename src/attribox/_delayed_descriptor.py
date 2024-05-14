@@ -40,16 +40,6 @@ class DelayedDescriptor(AbstractDescriptor):
     create the inner object. Subclasses must be able to create the inner
     object from the information provided up to this point. """
 
-  @abstractmethod
-  def _getPrivateName(self, ) -> str:
-    """Returns the name of the private attribute used to store the inner
-    object. Subclasses must implement this method to define the name on
-    the instance of the owner class where the inner object is stored.
-    Please note that this class does now define that the getter function
-    should definitely point to the contents at a private name. This does
-    remove some flexibility to create virtual attributes that does not
-    reflect an actual object. """
-
   def __instance_get__(self, instance: object, owner: type, **kwargs) -> Any:
     """The __instance_get__ method is called when the descriptor is accessed
     via the owning instance. If the instance already own an inner object,

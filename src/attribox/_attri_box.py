@@ -108,11 +108,6 @@ class AttriBox(TypedDescriptor):
     self.__keyword_args__ = kwargs
     return self
 
-  def _getPrivateName(self, ) -> str:
-    """Returns the name of the private attribute used to store the inner
-    object. """
-    return '__%s_value__' % (self._getFieldName(),)
-
   def _getArgs(self, instance: object) -> list:
     """Returns the arguments used to create the inner object. """
     out = []

@@ -47,8 +47,3 @@ class TypedDescriptor(DelayedDescriptor):
   @abstractmethod
   def _createInnerObject(self, instance: object) -> object:
     """Creates an instance of the inner class. """
-
-  @abstractmethod
-  def _getPrivateName(self, ) -> str:
-    """Returns the name of the private attribute used to store the inner
-    object. """
