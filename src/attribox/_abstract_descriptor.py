@@ -15,10 +15,23 @@ from vistutils.waitaminute import typeMsg
 class AbstractDescriptor:
   """AbstractDescriptor outlines the structure required by the descriptor
   protocol. It is not intended to be used directly, but to be subclassed by
-  concrete descriptors. """
+  concrete descriptors.
+
+  Please note that __init__ and __init_subclass__ are reimplemented only
+  to prevent the delicate object.__init__ and object.__init_subclass__ from
+  scawy arguments.
+  """
 
   __field_name__ = None
   __field_owner__ = None
+
+  def __init__(self, *args, **kwargs) -> None:
+    """Why are we still here?"""
+    object.__init__(self)
+
+  def __init_subclass__(cls, **kwargs) -> None:
+    """Just to suffer? Or to raise errors?"""
+    super().__init_subclass__()
 
   def _getFieldName(self) -> str:
     """Returns the name of the field the descriptor is assigned to. """
