@@ -7,15 +7,15 @@ build-backend = 'setuptools.build_meta'
 name = "attribox"
 version = "0.1.30"
 authors = [
-  { name = "Asger Jon Vistisen", email = "asgerjon2@gmail.com" },
+    { name = "Asger Jon Vistisen", email = "asgerjon2@gmail.com" },
 ]
 description = "Allows for deferred instantiation of class attributes."
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
-  "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
 ]
 
 [project.urls]
