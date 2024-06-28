@@ -7,7 +7,7 @@ Please note the nomenclature hierarchy:
 Since the name 'instance' firmly belongs to the instance of the owner class,
 the name 'inner object' or similar is used to refer to the instance of the
 inner class. """
-#  GPL-3.0 license
+#  AGPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 

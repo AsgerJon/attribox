@@ -1,7 +1,7 @@
 """AbstractDescriptor outlines the structure required by the descriptor
 protocol. It is not intended to be used directly, but to be subclassed by
 concrete descriptors. """
-#  GPL-3.0 license
+#  AGPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ class AbstractDescriptor:
 
   Please note that __init__ and __init_subclass__ are reimplemented only
   to prevent the delicate object.__init__ and object.__init_subclass__ from
-  scawy arguments.
+  raising errors when receiving scawy argz.
   """
 
   __field_name__ = None

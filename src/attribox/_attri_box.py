@@ -1,7 +1,7 @@
 """AttriBox subclasses the TypedDescriptor class and incorporates
 syntactic sugar for setting the inner class, and for the inner object
 creation. """
-#  GPL-3.0 license
+#  AGPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 
@@ -85,6 +85,7 @@ class AttriBox(TypedDescriptor):
 
   def __init__(self, *args, **kwargs) -> None:
     """Initializes the AttriBox instance. """
+    TypedDescriptor.__init__(self, *args, **kwargs)
     if not kwargs.get('_root', False):
       e = """The AttriBox class should not be instantiated directly!"""
       raise TypeError(e)
@@ -120,14 +121,22 @@ class AttriBox(TypedDescriptor):
         out.append(arg)
     return out
 
-  def _getKwargs(self, ) -> dict:
+  def _getKwargs(self, instance: object) -> dict:
     """Returns the keyword arguments used to create the inner object. """
+    out = {}
+    for (key, value) in self.__keyword_args__:
+      if value is this:
+        out[key] = instance
+      elif value is scope:
+        out[key] = self._getFieldOwner()
+      else:
+        out[key] = value
     return self.__keyword_args__
 
   def _createInnerObject(self, instance: object) -> object:
     """Creates an instance of the inner class. """
     innerClass = self._getInnerClass()
-    args, kwargs = self._getArgs(instance), self._getKwargs()
+    args, kwargs = self._getArgs(instance), self._getKwargs(instance)
     innerObject = innerClass(*args, **kwargs)
     if TYPE_CHECKING:
       assert isinstance(innerObject, AttriClass)

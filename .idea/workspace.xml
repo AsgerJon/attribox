@@ -8,9 +8,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33d6ad88-2607-4162-8478-3dfae5356144" name="Changes" comment="Inserting dummy implementations of __init__ and __init_subclass__ on AbstractDescriptor to stop the object errors.">
+      <change afterPath="$PROJECT_DIR$/src/example/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/example/_point.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/example/_rectangle.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/example/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/setup.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_abstract_descriptor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_attri_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attri_box.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_attri_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attri_class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_attri_vault.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_attrify.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_attrify.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_delayed_descriptor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_this_scope.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_this_scope.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/attribox/_typed_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/attribox/_typed_descriptor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tester_class_01.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tester_class_02.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

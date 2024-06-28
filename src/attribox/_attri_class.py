@@ -1,7 +1,7 @@
 """AttriClass provides a minimal class that is ready for boxing. If a
 custom class is intended to be used in AttriBox, it may subclass
 AttriClass which will provide the necessary methods and attributes. """
-#  GPL-3.0 license
+#  AGPL-3.0 license
 #  Copyright (c) 2024 Asger Jon Vistisen
 from __future__ import annotations
 
